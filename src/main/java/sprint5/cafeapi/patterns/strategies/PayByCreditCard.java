@@ -1,18 +1,20 @@
 package sprint5.cafeapi.patterns.strategies;
 
 import org.springframework.stereotype.Service;
-import sprint5.cafeapi.model.paymentMethod.CreditCard;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import sprint5.cafeapi.model.payment.CreditCard;
+import sprint5.cafeapi.service.ShoppingCartService;
 @Service
 public class PayByCreditCard implements PayStrategy {
-    private final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     private static final CreditCard card = new CreditCard("123456", "02/28", "123");
     private String number;
     private String date;
     private String cvv;
     private boolean signedIn;
+    private final ShoppingCartService shoppingCartService;
+
+    public PayByCreditCard(ShoppingCartService shoppingCartService) {
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public String pay(String paymentAmount) {
@@ -21,6 +23,7 @@ public class PayByCreditCard implements PayStrategy {
                 return  "Total amount R$ 0,00" +
                         "\nShopping cart is empty!";
             } else {
+                shoppingCartService.deleteShoppingCart();
                 return "Data verification has been sucessfull. \n" +"Paying " + paymentAmount + " using CreditCard.";
             }
         } else {

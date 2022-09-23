@@ -1,4 +1,4 @@
-package sprint5.cafeapi.model.paymentMethod;
+package sprint5.cafeapi.model.payment;
 
 import lombok.Getter;
 

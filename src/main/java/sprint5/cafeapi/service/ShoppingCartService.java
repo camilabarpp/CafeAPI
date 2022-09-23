@@ -2,8 +2,6 @@ package sprint5.cafeapi.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import sprint5.cafeapi.patterns.observers.ObserverShoppingCart;
-import sprint5.cafeapi.patterns.subject.Doorman;
 
 import java.util.List;
 
@@ -38,10 +36,6 @@ public class ShoppingCartService {
             items.clear();
         }
         return "";
-    }
-
-    public void deleteShoppingCart2() {
-        items.clear();
     }
 }
 

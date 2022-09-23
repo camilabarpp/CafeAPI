@@ -1,23 +1,33 @@
 package sprint5.cafeapi.patterns.strategies;
 
 import org.springframework.stereotype.Service;
-import sprint5.cafeapi.model.paymentMethod.DebitCard;
+import sprint5.cafeapi.model.payment.DebitCard;
+import sprint5.cafeapi.service.ShoppingCartService;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 @Service
 public class PayByDebitCard implements PayStrategy {
-    private final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     private static final DebitCard card = new DebitCard("123456", "02/28", "123");
     private String number;
     private String date;
     private String cvv;
     private boolean signedIn;
 
+    private ShoppingCartService shoppingCartService;
+
+    public PayByDebitCard(ShoppingCartService shoppingCartService) {
+        this.shoppingCartService = shoppingCartService;
+    }
+
     @Override
     public String pay(String paymentAmount) {
         if (signedIn) {
-            return "Data verification has been sucessfull. \n" +"Paying " + paymentAmount + " using DebitCard.";
+            if (paymentAmount.startsWith("0,0")) {
+                return  "Total amount R$ 0,00" +
+                        "\nShopping cart is empty!";
+            } else {
+                shoppingCartService.deleteShoppingCart();
+                return "Data verification has been sucessfull. \n" +"Paying " + paymentAmount + " using DebitCard.";
+            }
         } else {
             return "Wrong number card, date expiration or cvv!";
         }

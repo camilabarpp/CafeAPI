@@ -2,9 +2,9 @@ package sprint5.cafeapi.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import sprint5.cafeapi.model.paymentMethod.CreditCard;
-import sprint5.cafeapi.model.paymentMethod.DebitCard;
-import sprint5.cafeapi.model.paymentMethod.PayPal;
+import sprint5.cafeapi.model.payment.CreditCard;
+import sprint5.cafeapi.model.payment.DebitCard;
+import sprint5.cafeapi.model.payment.PayPal;
 import sprint5.cafeapi.patterns.strategies.PayByCreditCard;
 import sprint5.cafeapi.patterns.strategies.PayByDebitCard;
 import sprint5.cafeapi.patterns.strategies.PayByPayPal;
@@ -19,21 +19,15 @@ public class PaymentService {
 
     public String payAndVerifyCreditCard(CreditCard creditCard) {
         payByCreditCard.verify(creditCard);
-        return payByCreditCard.pay(shoppingCartService.showShoppingCart())
-            + shoppingCartService.deleteShoppingCart();
+        return payByCreditCard.pay(shoppingCartService.showShoppingCart());
     }
-
-    public boolean verifyCreditCard(CreditCard creditCard) {
-        return payByCreditCard.verify(creditCard);
-    }
-
-    public String payAndVerifyDebitCard(DebitCard debitCard, String payAmount) {
+    public String payAndVerifyDebitCard(DebitCard debitCard) {
         payByDebitCard.verify(debitCard);
-        return payByDebitCard.pay(payAmount);
+        return payByCreditCard.pay(shoppingCartService.showShoppingCart());
     }
 
-    public String payAndVerifyPayPal(PayPal payPal, String payAmount) {
+    public String payAndVerifyPayPal(PayPal payPal) {
         payByPayPal.verify(payPal);
-        return payByPayPal.pay(payAmount);
+        return payByPayPal.pay(shoppingCartService.showShoppingCart());
     }
 }

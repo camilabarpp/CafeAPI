@@ -1,7 +1,6 @@
 package sprint5.cafeapi.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sprint5.cafeapi.service.ShoppingCartService;
 
