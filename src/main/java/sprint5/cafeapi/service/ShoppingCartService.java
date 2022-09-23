@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ShoppingCartService {
-    public List<Double> items;
+    List<Double> items;
 
     public String shoppingCart(Double item)
     {
@@ -18,24 +18,27 @@ public class ShoppingCartService {
                 orElse(0d));
     }
 
-    public String calculateShoppingCart() {
-        return String.valueOf(calculateShoppingCart(0d));
-    }
-
-    public String calculateShoppingCart(Double item)
+    public String showShoppingCart()
     {
         if (items.isEmpty()) {
             return "0,00" +
                    "\nShopping cart is empty!";
         } else {
-            String.valueOf(items.get(0));
             return String.valueOf(items.stream()
                     .reduce(Double::sum).
                     orElse(0d));
         }
     }
+
+    public String deleteShoppingCart() {
+        if (!items.isEmpty()) {
+            items.clear();
+        }
+        return "0,00" +
+           "\nShopping cart is empty!";
+    }
 }
-        .
+
 
 
 
