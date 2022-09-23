@@ -17,19 +17,9 @@ public class PaymentController {
 
     private PaymentService service;
 
-    @GetMapping("/credit")
-    public boolean verify(@RequestBody CreditCard creditCard, String amout) {
-        return service.verifyCreditCard(creditCard);
-    }
-
-    @GetMapping("/credito2")
-    public String verifyAndPayCreditCard2(String amout) {
-        return service.payAndVerifyCreditCard2(amout);
-    }
-
     @GetMapping("/credito")
-    public String verifyAndPayCreditCard(@RequestBody CreditCard creditCard, String amout) {
-        return service.payAndVerifyCreditCard(creditCard, amout);
+    public String verifyAndPayCreditCard(@RequestBody CreditCard creditCard) {
+        return service.payAndVerifyCreditCard(creditCard);
     }
 
     @GetMapping("/debito")

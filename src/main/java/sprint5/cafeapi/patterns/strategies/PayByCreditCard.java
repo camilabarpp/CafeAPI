@@ -17,7 +17,12 @@ public class PayByCreditCard implements PayStrategy {
     @Override
     public String pay(String paymentAmount) {
         if (signedIn) {
-            return "Data verification has been sucessfull. \n" +"Paying " + paymentAmount + " using CreditCard.";
+            if (paymentAmount.startsWith("0,0")) {
+                return  "Total amount R$ 0,00" +
+                        "\nShopping cart is empty!";
+            } else {
+                return "Data verification has been sucessfull. \n" +"Paying " + paymentAmount + " using CreditCard.";
+            }
         } else {
             return "Wrong number card, date expiration or cvv!";
         }

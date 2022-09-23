@@ -1,11 +1,11 @@
 package sprint5.cafeapi.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import sprint5.cafeapi.service.ShoppingCartService;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("shoppingCart/")
@@ -20,6 +20,7 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping
+    @ResponseStatus(NO_CONTENT)
     public String deleteShoppingCart() {
         return "Total amount: R$ " + shoppingCartService.deleteShoppingCart();
     }
