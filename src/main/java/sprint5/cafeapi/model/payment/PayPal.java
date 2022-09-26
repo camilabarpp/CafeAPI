@@ -20,16 +20,19 @@ public class PayPal {
         private String email;
         private String password;
 
-        public Builder(String id, String nomeTitular, String email, String password) {
-            this.id = id;
-            this.nomeTitular = nomeTitular;
+        public Builder(String email, String password) {
             this.email = email;
             this.password = password;
         }
 
-        public Builder(String email, String password) {
-            this.email = email;
-            this.password = password;
+        public Builder idPayPal(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder nomeTitular(String nomeTitular) {
+            this.nomeTitular = nomeTitular;
+            return this;
         }
 
         public PayPal registrationCompleted() {

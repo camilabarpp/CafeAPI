@@ -8,6 +8,8 @@ public class PayByPayPal implements PayStrategy {
 
     private static final PayPal card = new PayPal
             .Builder("camila@gmail.com","123456")
+            .idPayPal("1")
+            .nomeTitular("Camila")
             .registrationCompleted();
 
     private boolean signedIn;

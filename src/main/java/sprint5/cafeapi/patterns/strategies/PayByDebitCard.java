@@ -6,13 +6,14 @@ import sprint5.cafeapi.service.ShoppingCartService;
 
 @Service
 public class PayByDebitCard implements PayStrategy {
-    private static final DebitCard card = new DebitCard("123456", "02/28", "123");
-    private String number;
-    private String date;
-    private String cvv;
+    private static final DebitCard card = new DebitCard
+            .Builder("123456", "02/28", "123")
+            .idDebitCard("1")
+            .nomeTitular("Camila")
+            .registrationCompleted();
     private boolean signedIn;
 
-    private ShoppingCartService shoppingCartService;
+    private final ShoppingCartService shoppingCartService;
 
     public PayByDebitCard(ShoppingCartService shoppingCartService) {
         this.shoppingCartService = shoppingCartService;
@@ -35,7 +36,7 @@ public class PayByDebitCard implements PayStrategy {
 
     public boolean verify(DebitCard debitCard) {
         setSignedIn(debitCard.getNumber().equals(card.getNumber()));
-        setSignedIn(debitCard.getDate().equals(card.getDate()));
+        setSignedIn(debitCard.getDateExpiration().equals(card.getDateExpiration()));
         setSignedIn(debitCard.getCvv().equals(card.getCvv()));
         return signedIn;
     }

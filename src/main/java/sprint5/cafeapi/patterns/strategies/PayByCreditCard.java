@@ -5,10 +5,11 @@ import sprint5.cafeapi.model.payment.CreditCard;
 import sprint5.cafeapi.service.ShoppingCartService;
 @Service
 public class PayByCreditCard implements PayStrategy {
-    private static final CreditCard card = new CreditCard("123456", "02/28", "123");
-    private String number;
-    private String date;
-    private String cvv;
+    private static final CreditCard card = new CreditCard
+            .Builder("123456", "02/28", "123")
+            .idDebitCard("1")
+            .nomeTitular("Camila")
+            .registrationCompleted();
     private boolean signedIn;
     private final ShoppingCartService shoppingCartService;
 
@@ -32,7 +33,7 @@ public class PayByCreditCard implements PayStrategy {
     }
     public boolean verify(CreditCard creditCard) {
         setSignedIn(creditCard.getNumber().equals(card.getNumber()));
-        setSignedIn(creditCard.getDate().equals(card.getDate()));
+        setSignedIn(creditCard.getDateExpiration().equals(card.getDateExpiration()));
         setSignedIn(creditCard.getCvv().equals(card.getCvv()));
         return signedIn;
     }
