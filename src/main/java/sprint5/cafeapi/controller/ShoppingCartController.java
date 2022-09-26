@@ -15,12 +15,14 @@ public class ShoppingCartController {
 
     @GetMapping
     public String showShoppingCart() {
-        return "Total amount: R$ " + shoppingCartService.showShoppingCart();
+        return "Total amount: R$ " + shoppingCartService.showShoppingCart() +
+                "\n" + shoppingCartService.getNomes();
     }
 
     @DeleteMapping
     @ResponseStatus(NO_CONTENT)
-    public String deleteShoppingCart() {
-        return "Total amount: R$ " + shoppingCartService.deleteShoppingCart();
+    public void deleteShoppingCart() {
+        shoppingCartService.deleteShoppingCart();
     }
+
 }

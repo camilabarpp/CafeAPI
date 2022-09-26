@@ -1,5 +1,8 @@
 package sprint5.cafeapi.model.drink;
 
+import lombok.Getter;
+import lombok.ToString;
+
 public class Tea implements Drink {
     @Override
     public String servir() {

@@ -1,7 +1,6 @@
 package sprint5.cafeapi.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import sprint5.cafeapi.model.drink.Drink;
 import sprint5.cafeapi.model.drink.Expresso;
@@ -9,17 +8,32 @@ import sprint5.cafeapi.model.drink.Tea;
 import sprint5.cafeapi.patterns.decorator.DoubleDrink;
 import sprint5.cafeapi.patterns.decorator.Milk;
 
+import java.util.List;
+
+import static java.util.Collections.singletonList;
+
 @Service
 @AllArgsConstructor
 public class CafeService {
+    //List<String> nomes;
+
+/*    public void add(String name) {
+        nomes.add(0, String.valueOf(name));
+    }*/
     private ShoppingCartService shoppingCartService;
-    private PaymentService paymentService;
+
+/*
+    public List<String> getNomes() {
+        return singletonList(shoppingCartService.nomes + "\nTotal amount: R$ " + shoppingCartService.showShoppingCart());
+    }
+*/
 
     public String order(String name, Drink drink) {
-        double sum = Double.parseDouble(shoppingCartService.shoppingCart(drink.getPrice()));
-        return  "\n\nOrdering a " + name +
+        String sum = shoppingCartService.getPrice(drink.getPrice());
+        shoppingCartService.add(name);
+        return "\n\nOrdering a " + name +
                 drink.servir() + "\nPrice: R$ " +
-                drink.getPrice() + "\nTotal amount: R$ " + sum;
+                drink.getPrice() + "\n" + "\nTotal amount: R$ " + sum;
     }
     public String test1() {
         return order("Expresso", new Expresso());
@@ -56,6 +70,13 @@ public class CafeService {
                 5 - English Tea   R$ 1,50
                 6 - British Tea   R$ 2,00""";
 
+    }
+
+    public String deleteShoppingCart() {
+        if (!shoppingCartService.items.isEmpty()) {
+            shoppingCartService.items.clear();
+        }
+        return "";
     }
 }
 

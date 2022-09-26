@@ -3,15 +3,27 @@ package sprint5.cafeapi.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.singletonList;
 
 @Service
 @AllArgsConstructor
 public class ShoppingCartService {
-
     List<Double> items;
+    List<String> nomes;
 
-    public String shoppingCart(Double item)
+    public void add(String name) {
+        nomes.add(0, String.valueOf(name));
+    }
+
+    public List<String> getNomes() {
+        return nomes;
+    }
+
+
+    public String getPrice(Double item)
     {
         items.add(item);
         return String.valueOf(items.stream()
@@ -33,6 +45,7 @@ public class ShoppingCartService {
 
     public String deleteShoppingCart() {
         if (!items.isEmpty()) {
+            nomes.clear();
             items.clear();
         }
         return "";

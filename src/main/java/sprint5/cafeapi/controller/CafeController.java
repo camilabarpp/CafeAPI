@@ -1,10 +1,10 @@
 package sprint5.cafeapi.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sprint5.cafeapi.service.CafeService;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("/menu")
@@ -15,6 +15,17 @@ public class CafeController {
     @GetMapping()
     public String menu() {
         return service.menu();
+    }
+
+/*    @GetMapping("/shoppingCart")
+    public String test() {
+        return "Shopping Cart List \n" +
+                service.getNomes();
+    }*/
+    @DeleteMapping
+    @ResponseStatus(NO_CONTENT)
+    public String deleteShoppingCart() {
+        return "Total amount: R$ " + deleteShoppingCart();
     }
 
     @GetMapping("/1")
