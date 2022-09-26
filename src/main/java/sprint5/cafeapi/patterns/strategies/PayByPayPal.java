@@ -1,8 +1,12 @@
 package sprint5.cafeapi.patterns.strategies;
 
 import org.springframework.stereotype.Service;
+import sprint5.cafeapi.model.payment.DebitCard;
 import sprint5.cafeapi.model.payment.PayPal;
 import sprint5.cafeapi.service.ShoppingCartService;
+
+import java.util.regex.Pattern;
+
 @Service
 public class PayByPayPal implements PayStrategy {
 
@@ -10,6 +14,10 @@ public class PayByPayPal implements PayStrategy {
             .Builder("camila@gmail.com","123456")
             .idPayPal("1")
             .nomeTitular("Camila")
+            .registrationCompleted();
+
+    private static final PayPal paypalAccount = new PayPal
+            .Builder("email@teste.com", "123")
             .registrationCompleted();
 
     private boolean signedIn;
@@ -20,13 +28,13 @@ public class PayByPayPal implements PayStrategy {
     }
 
     public boolean verify(PayPal payPal) {
-        setSignedIn(payPal.getPassword().equals(card.getPassword()));
         setSignedIn(payPal.getEmail().equals(card.getEmail()));
-        return signedIn;
+        setSignedIn(payPal.getPassword().matches(card.getPassword()));
+            return signedIn;
     }
     @Override
     public String pay(String paymentAmount) {
-        if (signedIn) {
+        if (signedIn == true) {
             if (paymentAmount.startsWith("0,0")) {
                 return  "Total amount R$ 0,00" +
                         "\nShopping cart is empty!";
@@ -35,7 +43,7 @@ public class PayByPayPal implements PayStrategy {
                 return "Data verification has been sucessfull. \n" +"Paying " + paymentAmount + " using PayPal.";
             }
         } else {
-            return "Wrong number card, date expiration or cvv!";
+            return "Wrong email or password!";
         }
     }
 

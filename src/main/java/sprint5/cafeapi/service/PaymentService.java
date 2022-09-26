@@ -23,7 +23,7 @@ public class PaymentService {
     }
     public String payAndVerifyDebitCard(DebitCard debitCard) {
         payByDebitCard.verify(debitCard);
-        return payByCreditCard.pay(shoppingCartService.showShoppingCart());
+        return payByDebitCard.pay(shoppingCartService.showShoppingCart());
     }
 
     public String payAndVerifyPayPal(PayPal payPal) {

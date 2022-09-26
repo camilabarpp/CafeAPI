@@ -4,9 +4,15 @@ import org.springframework.stereotype.Service;
 import sprint5.cafeapi.model.payment.DebitCard;
 import sprint5.cafeapi.service.ShoppingCartService;
 
+import java.util.Objects;
+
 @Service
 public class PayByDebitCard implements PayStrategy {
     private static final DebitCard card = new DebitCard
+            .Builder("123456", "02/28", "123")
+            .registrationCompleted();
+
+    private static final DebitCard card1 = new DebitCard
             .Builder("123456", "02/28", "123")
             .idDebitCard("1")
             .nomeTitular("Camila")
@@ -35,9 +41,7 @@ public class PayByDebitCard implements PayStrategy {
     }
 
     public boolean verify(DebitCard debitCard) {
-        setSignedIn(debitCard.getNumber().equals(card.getNumber()));
-        setSignedIn(debitCard.getDateExpiration().equals(card.getDateExpiration()));
-        setSignedIn(debitCard.getCvv().equals(card.getCvv()));
+        setSignedIn(Objects.equals(debitCard, card));
         return signedIn;
     }
 
