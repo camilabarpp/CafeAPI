@@ -3,10 +3,7 @@ package sprint5.cafeapi.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-
-import static java.util.Collections.singletonList;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +18,6 @@ public class ShoppingCartService {
     public List<String> getNomes() {
         return nomes;
     }
-
 
     public String getPrice(Double item)
     {

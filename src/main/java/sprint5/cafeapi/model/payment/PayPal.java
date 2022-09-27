@@ -1,42 +1,48 @@
 package sprint5.cafeapi.model.payment;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@AllArgsConstructor
 @ToString
 public class PayPal {
-    private String id;
-    private String nomeTitular;
-    private String email;
-    private String password;
+    private final String id;
+    private final String nomeTitular;
+    private final String email;
+    private final String password;
 
-    public static class Builder {
+    public PayPal(builder builder) {
+        this.id = builder.id;
+        this.nomeTitular = builder.nomeTitular;
+        this.email = builder.email;
+        this.password = builder.password;
+
+    }
+
+    public static class builder {
 
         private String id;
         private String nomeTitular;
-        private String email;
-        private String password;
+        private final String email;
+        private final String password;
 
-        public Builder(String email, String password) {
+        public builder(String email, String password) {
             this.email = email;
             this.password = password;
         }
 
-        public Builder idPayPal(String id) {
+        public builder id(String id) {
             this.id = id;
             return this;
         }
 
-        public Builder nomeTitular(String nomeTitular) {
+        public builder nometitular(String nomeTitular) {
             this.nomeTitular = nomeTitular;
             return this;
         }
 
-        public PayPal registrationCompleted() {
-            return new PayPal(id, nomeTitular, email, password);
+        public PayPal build() {
+            return new PayPal(this);
         }
     }
 }
